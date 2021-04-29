@@ -8,6 +8,7 @@ TDD 해야 하는데.. 그냥 일단 일변도로 간다.
 ## 블로깅
 [0000](https://changbaebang.github.io/2021-04-26-toy-project-0000/)   
 [0001](https://changbaebang.github.io/2021-04-27-toy-project-0001/)  
+[0002](https://changbaebang.github.io/2021-04-29-toy-project-0002/)  
 
 
 

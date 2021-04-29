@@ -1,0 +1,23 @@
+{
+  "name": "stocktoyproj",
+  "version": "1.0.0",
+  "description": "네이버 금웅을 기준으로",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/changbaebang/stockToyProj.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/changbaebang/stockToyProj/issues"
+  },
+  "homepage": "https://github.com/changbaebang/stockToyProj#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "lodash": "^4.17.21"
+  }
+}
