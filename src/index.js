@@ -1,5 +1,7 @@
 const axios = require('axios');
-var _ = require('lodash');
+const _ = require('lodash');
+const cheerio = require("cheerio");
+
 
 const NV = "https://m.stock.naver.com/api";
 const getURL = (base, detail) => (item) => `${base}${detail(item)}`
@@ -54,24 +56,67 @@ const getOverallInfo = async (code) => {
   return result;
 };
 
+
+/*
+<div class="ct_box opinion">
+  <div class="graph_area _graph_area step4">
+    <div class="graph_base">
+      <div class="graph_data _graph_data">
+        <span class="data_lyr _data_lyr" style="left:69%">
+          3.95
+        <span class="arrow"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="goal_area">
+    <span class="goal_stock">
+      <span class="goal">목표주가</span>
+        <em class="stock_price">105,909<span class="type">원</span></em>
+      </span>
+  </div>
+*/
+const getGoal = (html_content) => {
+  const $ = cheerio.load(html_content);
+  const rates = $('span.data_lyr._data_lyr');
+  //console.info(rates.length);
+  //console.info(rates.text());
+  const stock_prices = $('em.stock_price');
+  //console.info(stock_prices.length);
+  const result = _.parseInt(_.join(_.split(stock_prices.text(), /,|원/i), ""));
+  return result;
+};
+
+
+
+
 (async () => {
-  const ListCount = 100;
+  const ListCount = 300;
 
   // IN 종목 수
   // OUT 컨센서스 낮은 종목 출력
   const result = await getItemList(ListCount);
   const itemList = result.itemList;
   await _.forEach(itemList, async (item) => {
-    console.log(`name : ${item.nm}`);
-    console.log(`code : ${item.cd}`);
-    console.log(`value: ${item.nv}`);
+    // console.log(`name : ${item.nm}`);
+    // console.log(`code : ${item.cd}`);
+    // console.log(`value: ${item.nv}`);
     try {
       const code = item.cd;
-      const trand = await getTrend(code);
-      const overallInfor = await getOverallInfo(code);
+      //const trand = await getTrend(code);
+      const overallInfo = await getOverallInfo(code);
+      //console.info(overallInfo);
+      const goal = getGoal(overallInfo);
+      const rate = _.floor((goal/item.nv*100)-100, 2);
+
+      if (rate > 100) {
+        console.log(`name : ${item.nm} value: ${item.nv} goal: ${goal} ${rate}`);
+      }
+
     } catch (error) {
       console.error(error);
     }
+
   });
 })();
 
