@@ -91,7 +91,7 @@ const getGoal = (html_content) => {
 
 
 (async () => {
-  const ListCount = 300;
+  const ListCount = 100;
 
   // IN 종목 수
   // OUT 컨센서스 낮은 종목 출력
@@ -109,7 +109,7 @@ const getGoal = (html_content) => {
       const goal = getGoal(overallInfo);
       const rate = _.floor((goal/item.nv*100)-100, 2);
 
-      if (rate > 100) {
+      if (rate > 45 && !_.includes(item.nm, "우")) {
         console.log(`name : ${item.nm} value: ${item.nv} goal: ${goal} ${rate}`);
       }
 
