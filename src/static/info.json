@@ -1,0 +1,28 @@
+{
+  "api" : {
+    "base" : "https://m.stock.naver.com/api",
+    "siseListJson" : "/json/sise/siseListJson.nhn",
+    "trendList" : "/item/getTrendList.nhn",
+    "overallInfo" : "/html/item/getOverallInfo.nhn"
+  },
+  "overallInfo" : {
+    "rate" : {
+      "finder" : "span.data_lyr._data_lyr",
+      "ignores" : []
+    },
+    "price" : {
+      "finder" : "em.stock_price",
+      "ignores" : [",", "원"]
+    }
+  },
+  "item":{
+    "count": 100,
+    "concensusRate" : 4,
+    "concensusRatio" : 40,
+    "itemExclues" : ["우"]
+  },
+  "dev" : {
+    "debug" : false,
+    "info" : false
+  }
+}
